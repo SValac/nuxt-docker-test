@@ -1,7 +1,7 @@
 # use the official Bun image
 # see all versions at https://hub.docker.com/r/oven/bun/tags
 FROM oven/bun:1 AS base
-WORKDIR /usr/src/app
+WORKDIR /usr/src
 
 # install dependencies into temp directory
 # this will cache them and speed up future builds
@@ -28,7 +28,7 @@ COPY . .
 #
 # run the app
 # Change ownership to bun user before switching
-RUN chown -R bun:bun /usr/src/app
+RUN chown -R bun:bun /usr/src
 USER bun
 EXPOSE 3000/tcp
 ENTRYPOINT [ "bun", "--bun", "run", "dev" ]
