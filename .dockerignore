@@ -1,18 +1,50 @@
+# Dependencies (installed during Docker build)
 node_modules
+
+# Nuxt dev/build outputs (generated at runtime)
+.output
+.nuxt
+.nitro
+.cache
+dist
+
+# Git
+.git
+.gitignore
+
+# Docker files
 Dockerfile*
 docker-compose*
 .dockerignore
-.git
-.gitignore
-README.md
-LICENSE
-.vscode
-.zed
-.ouput
-.nuxt
+
+# Build tools & configuration
 Makefile
 helm-charts
+
+# Environment files
 .env
-.editorconfig
+.env.*
+!.env.example
+
+# IDE & Editor configs
+.vscode
+.zed
 .idea
+.editorconfig
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+*.log
+
+# Testing outputs
+test-results
+playwright-report
 coverage*
+
+# Documentation (optional, comment out if you want to include them)
+README.md
+LICENSE
+CLAUDE.md

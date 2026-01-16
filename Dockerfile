@@ -27,6 +27,8 @@ COPY . .
 # RUN bun run build
 #
 # run the app
+# Change ownership to bun user before switching
+RUN chown -R bun:bun /usr/src/app
 USER bun
 EXPOSE 3000/tcp
 ENTRYPOINT [ "bun", "--bun", "run", "dev" ]
