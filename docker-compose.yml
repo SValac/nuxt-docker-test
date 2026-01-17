@@ -4,11 +4,17 @@ services:
     container_name: bun-nuxt-dev
     ports:
       - "3000:3000"
+    env_file:
+      - .env
     volumes:
       # Proteger node_modules del contenedor
       - /usr/src/node_modules
     develop:
       watch:
+        # Reconstruir cuando cambien variables de entorno
+        - path: ./.env
+          action: rebuild
+
         # Sincronizar cambios de código fuente (con HMR)
         - path: ./app
           target: /usr/src/app
