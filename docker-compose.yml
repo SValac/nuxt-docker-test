@@ -5,6 +5,81 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - .:/usr/src
+      # Proteger node_modules del contenedor
       - /usr/src/node_modules
+    develop:
+      watch:
+        # Sincronizar cambios de código fuente (con HMR)
+        - path: ./app
+          target: /usr/src/app
+          action: sync
+
+        - path: ./components
+          target: /usr/src/components
+          action: sync
+          ignore:
+            - "**/*.test.ts"
+            - "**/*.spec.ts"
+
+        - path: ./composables
+          target: /usr/src/composables
+          action: sync
+
+        - path: ./pages
+          target: /usr/src/pages
+          action: sync
+
+        - path: ./layouts
+          target: /usr/src/layouts
+          action: sync
+
+        - path: ./plugins
+          target: /usr/src/plugins
+          action: sync
+
+        - path: ./middleware
+          target: /usr/src/middleware
+          action: sync
+
+        - path: ./assets
+          target: /usr/src/assets
+          action: sync
+
+        - path: ./public
+          target: /usr/src/public
+          action: sync
+
+        - path: ./server
+          target: /usr/src/server
+          action: sync
+
+        # Reiniciar cuando cambien configuraciones
+        - path: ./nuxt.config.ts
+          target: /usr/src/nuxt.config.ts
+          action: restart
+
+        - path: ./tsconfig.json
+          target: /usr/src/tsconfig.json
+          action: restart
+
+        - path: ./vitest.config.ts
+          target: /usr/src/vitest.config.ts
+          action: restart
+
+        - path: ./playwright.config.ts
+          target: /usr/src/playwright.config.ts
+          action: restart
+
+        - path: ./eslint.config.mjs
+          target: /usr/src/eslint.config.mjs
+          action: restart
+
+        # Reconstruir cuando cambien dependencias
+        - path: ./package.json
+          target: /usr/src/package.json
+          action: rebuild
+
+        - path: ./bun.lock
+          target: /usr/src/bun.lock
+          action: rebuild
     restart: unless-stopped
